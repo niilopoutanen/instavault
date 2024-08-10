@@ -24,6 +24,12 @@
   <li><a href="https://instagram.com">Instagram account</a></li>
 </ul>
 
+## Get started
+
+```
+1. npm install
+2. npm run vault
+```
 ## How does it work?
 <ul>
   <li>The app uses a code injected into browser console. No login details are needed.</li>
