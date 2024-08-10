@@ -28,11 +28,16 @@
             name: "chart-bar",
             svg: `<svg width="256" height="320" viewBox="0 0 256 320" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M64 288L64 32C64 14.3 49.7 7.73692e-07 32 0C14.3 -7.73692e-07 1.19638e-05 14.3 1.11901e-05 32L0 288C-7.73691e-07 305.7 14.3 320 32 320C49.7 320 64 305.7 64 288Z" fill="white"/><path d="M160 288L160 160C160 142.3 145.7 128 128 128C110.3 128 96 142.3 96 160V288C96 305.7 110.3 320 128 320C145.7 320 160 305.7 160 288Z" fill="white"/><path d="M256 96C256 78.3 241.7 64 224 64C206.3 64 192 78.3 192 96L192 288C192 305.7 206.3 320 224 320C241.7 320 256 305.7 256 288L256 96Z" fill="white"/></svg>`,
         },
+        {
+            box: 512,
+            name: "menu",
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/></svg>`,
+        },
     ];
     let displayIcon = icons.find((e) => e.name === name);
 </script>
 
-<svg class={$$restProps.class} {width} {height} viewBox="0 0 {displayIcon.box} {displayIcon.box}">
+<svg class="icon {$$restProps.class}" {width} {height} viewBox="0 0 {displayIcon.box} {displayIcon.box}">
     {@html displayIcon.svg}
 </svg>
 
@@ -40,5 +45,9 @@
     @use "$lib/styles/vars.scss" as *;
     svg {
         fill: CanvasText;
+
+        &.invert{
+            fill: light-dark(white, CanvasText);
+        }
     }
 </style>

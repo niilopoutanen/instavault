@@ -1,10 +1,23 @@
 <script>
     import { page } from "$app/stores";
-
+    import Icon from "./Icon.svelte";
+    import { writeValue, getConfig } from "$lib/backend/config";
+    import { beforeUpdate, onMount } from "svelte";
     export let accounts = [];
+
+    let collapsed = false;
+    let config;
+    beforeUpdate(async () => {
+        config = await getConfig(); 
+        collapsed = config.sidebarCollapsed;
+    });
+    async function toggleCollapse(){
+        collapsed = !collapsed;
+        writeValue("sidebarCollapsed", collapsed);
+    }
 </script>
 
-<div id="sidebar">
+<div id="sidebar" class="{collapsed ? "collapsed" : ""}">
     <a class="heading" href="/dashboard">
         <img src="/favicon.svg" alt="Logo" />
         <h1>InstaVault</h1>
@@ -28,11 +41,17 @@
     </div>
 
     <div class="section">
+        <button class="button layer-3 fullwidth center" on:click={toggleCollapse}>
+            <p class="nomargin">Collapse</p>
+            <Icon name="menu" />
+        </button>
         <a class="button layer-3 fullwidth center" href="/dashboard/settings">
             <p class="nomargin">Settings</p>
+            <Icon name="settings" />
         </a>
         <a class="button fullwidth center" href="/import">
             <p class="nomargin">Add new</p>
+            <Icon name="plus" class="invert" />
         </a>
     </div>
 </div>
@@ -45,7 +64,7 @@
         min-width: 280px;
         height: 100%;
         background-color: light-dark($layer-2-light, $layer-2-dark);
-
+        transition: min-width 0.2s;
         padding: 20px;
         box-sizing: border-box;
 
@@ -78,7 +97,9 @@
                 font-size: 14px;
                 font-weight: 500;
             }
-
+            :global(.icon) {
+                display: none;
+            }
             .item {
                 padding: 10px;
                 border-radius: 10px;
@@ -115,6 +136,31 @@
                         overflow: hidden;
                         text-overflow: ellipsis;
                     }
+                }
+            }
+        }
+
+        &.collapsed {
+            align-items: center;
+            min-width: 80px;
+            padding: 20px 10px;
+            .heading {
+                h1 {
+                    display: none;
+                }
+            }
+            .account {
+                justify-content: center;
+                .username {
+                    display: none;
+                }
+            }
+            .section {
+                :global(.icon) {
+                    display: inline;
+                }
+                .button p {
+                    display: none;
                 }
             }
         }

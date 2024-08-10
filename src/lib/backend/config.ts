@@ -2,6 +2,7 @@ export class Config{
     introDone: boolean = false;
     chartType: ChartType = ChartType.Line;
     lastActiveUser: string = "";
+    sidebarCollapsed: boolean = false;
 }
 export enum ChartType{
     Bar = "bar",
