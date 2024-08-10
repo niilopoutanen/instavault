@@ -23,6 +23,9 @@
 
 <style lang="scss">
     @use "$lib/styles/vars.scss" as *;
+    :global(.list){
+        min-width: 300px;
+    }
     .accounts{
         display: flex;
         flex-direction: column;

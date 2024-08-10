@@ -6,7 +6,6 @@
     import { Period, Snapshot } from "$lib/backend/models";
     import UserActivityCard from "$lib/components/cards/UserActivityCard.svelte";
     import { writeValue } from "$lib/backend/config";
-    import { onMount } from "svelte";
     import { beautifyDate } from "$lib/backend/utils";
     export let data: Snapshot;
 
@@ -15,26 +14,21 @@
     $: {
         writeValue("lastActiveUser", data.account.username);
     }
-    
 </script>
 
 <div class="grid">
-    <div class="header span4">
-        <ProfileCard {data} />
-        <ListCard title="Followers" data={data.followers} maxHeight={350} />
-        <ListCard title="Following" data={data.following} maxHeight={350} />
-    </div>
+    <ProfileCard {data} />
 
     <div class="controls span4">
         <a href="/import/copy?username={data?.account?.username}" class="button layer-2 small nomargin">Import new data</a>
         <a href="https://instagram.com/{data?.account?.username}" target="_blank" class="button layer-2 small nomargin">View profile</a>
         <div class="expand"></div>
-        <Chips bind:activePeriod/>
+        <Chips bind:activePeriod />
     </div>
 
-    <ChartCard title="Followers" summary={data.summary} property={"followers"} period={activePeriod}/>
+    <ChartCard title="Followers" summary={data.summary} property={"followers"} period={activePeriod} />
 
-    <ChartCard title="Following" summary={data.summary} property={"following"} period={activePeriod}/>
+    <ChartCard title="Following" summary={data.summary} property={"following"} period={activePeriod} />
 
     <UserActivityCard title="New followers" {activePeriod} summary={data.summary} />
 
@@ -59,45 +53,56 @@
 <style lang="scss">
     @use "$lib/styles/vars.scss" as *;
     .grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        display: flex;
+        flex-wrap: wrap;
         gap: 40px;
 
-        .header {
-            display: flex;
-            flex-direction: row;
-            gap: 40px;
-
-            :global(.list) {
-                width: 100%;
-            }
-        }
         .controls {
             height: 30px;
             width: 100%;
             display: flex;
             gap: 10px;
         }
-        .details{
+        .details {
             color: $text-secondary;
             font-size: 14px;
             display: flex;
-            gap: 30px
+            flex-wrap: wrap;
+            gap: 20px 30px;
+        
         }
         :global(.span1) {
-            grid-column: span 1;
+            width: calc(25% - 20px);
         }
 
         :global(.span2) {
-            grid-column: span 2;
+            width: calc(50% - 20px);
         }
 
         :global(.span3) {
-            grid-column: span 3;
+            width: calc(75% - 20px);
         }
 
         :global(.span4) {
-            grid-column: span 4;
+            width: 100%;
+        }
+
+        @media screen and (max-width: 1200px) {
+            :global(.span1) {
+                width: 100%;
+            }
+
+            :global(.span2) {
+                width: 100%;
+            }
+
+            :global(.span3) {
+                width: 100%;
+            }
+
+            :global(.span4) {
+                width: 100%;
+            }
         }
     }
 </style>

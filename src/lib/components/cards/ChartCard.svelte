@@ -121,9 +121,4 @@
         height: 100% !important;
         min-height: 350px;
     }
-
-
-    .type-selector{
-        display: flex;
-    }
 </style>

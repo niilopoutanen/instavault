@@ -98,10 +98,7 @@
                 &.active {
                     background-color: light-dark($layer-3-light, $layer-3-dark);
                 }
-                .icon {
-                    width: 20px;
-                    height: 20px;
-                }
+
                 &.account {
                     img.pfp {
                         width: 30px;

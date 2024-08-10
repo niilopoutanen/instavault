@@ -1,32 +1,46 @@
 <script>
     import { onMount } from "svelte";
     import Card from "../Card.svelte";
+    import ListCard from "./ListCard.svelte";
     export let data;
 
 </script>
-<Card class="center profilecard">
-    <object class="pfp" data="/data/{data?.account?.username}/pfp.jpg" type="image/jpeg" title="Profile">
-        <img src="/assets/pfp_placeholder.jpg" alt="Profile"/>
-    </object>
-    <p class="username">{data?.account?.username}</p>
-    <div class="details">
-        <div class="group">
-            <span>Followers</span>
-            <p class="nomargin">{data?.followers?.length}</p>
+
+<div class="header span4">
+    <Card class="center profilecard">
+        <object class="pfp" data="/data/{data?.account?.username}/pfp.jpg" type="image/jpeg" title="Profile">
+            <img src="/assets/pfp_placeholder.jpg" alt="Profile"/>
+        </object>
+        <p class="username">{data?.account?.username}</p>
+        <div class="details">
+            <div class="group">
+                <span>Followers</span>
+                <p class="nomargin">{data?.followers?.length}</p>
+            </div>
+            <div class="group">
+                <span>Following</span>
+                <p class="nomargin">{data?.following?.length}</p>
+            </div>
         </div>
-        <div class="group">
-            <span>Following</span>
-            <p class="nomargin">{data?.following?.length}</p>
-        </div>
-    </div>
-</Card>
+    </Card>
+    <ListCard title="Followers" data={data.followers} maxHeight={350} />
+    <ListCard title="Following" data={data.following} maxHeight={350} />
+</div>
+
 
 
 <style lang="scss">
     @use "$lib/styles/vars.scss" as *;
+    .header{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
     :global(.profilecard){
         width: 350px;
         min-width: 300px;
+        flex-grow: 1;
         .pfp{
             border-radius: 50%;
             width: 200px;
@@ -66,5 +80,9 @@
                 }
             }
         }
+    }
+    :global(.list){
+        width: 30% !important;
+        flex-grow: 1;
     }
 </style>
