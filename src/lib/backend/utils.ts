@@ -4,12 +4,16 @@ import type { Account, Summary } from './models';
 
 export function getLatestSnapshotPath(username: string): string {
     const accountPath = `./data/${username}`;
-
-    let dates = fs.readdirSync(accountPath, { withFileTypes: true })
+    if(!fs.existsSync(accountPath)){
+        return null;
+    }
+    let dates: any[] = fs.readdirSync(accountPath, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name);
 
+    if (!dates || dates.length == 0) return;
     dates = dates.sort();
+
     const timestamps = fs.readdirSync(path.join(accountPath, dates[dates.length - 1]), { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name);
@@ -136,4 +140,13 @@ export function beautifyDate(date: Date): string {
         return `${shortDate}, ${year}`;
     }
     return `${shortDate}`;
+}
+
+
+export function verify(username) {
+    const accountPath = `./data/${username}`
+
+    if (!fs.existsSync(accountPath)) {
+        fs.mkdirSync(accountPath, { recursive: true });
+    }
 }

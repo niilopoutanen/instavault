@@ -3,6 +3,8 @@ import { json } from "@sveltejs/kit";
 import { getDay, getTime } from "$lib/backend/utils.js";
 export async function GET() {
     const dataPath = "./data";
+    if(!fs.existsSync(dataPath)) return json(null);
+
     const users = fs.readdirSync(dataPath, { withFileTypes: true })
     let accounts = [];
     for (const user of users) {

@@ -4,6 +4,10 @@ export async function load(props) {
     const res = await fetch(`${props.url.origin}/api/accounts`);
     const data = await res.json();
 
+    if(!data || data.length == 0){
+        redirect(307, "/import");
+    }
+    
     const config = await getConfig();
 
     let userToDisplay: string;

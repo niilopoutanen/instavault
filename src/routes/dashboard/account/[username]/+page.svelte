@@ -12,7 +12,7 @@
     export let activePeriod: Period;
 
     $: {
-        writeValue("lastActiveUser", data.account.username);
+        writeValue("lastActiveUser", data?.account?.username);
     }
 </script>
 
@@ -43,8 +43,8 @@
     <ListCard title="Don't follow me back" data={data.dontFollowMeBack} />
 
     <div class="details span4">
-        <span>Last archived on: {beautifyDate(data?.summary[data.summary.length - 1]?.date)}</span>
-        <span>Amount of snapshots: {data?.summary.length}</span>
+        <span>Last archived on: {beautifyDate(data?.summary[data?.summary?.length - 1]?.date)}</span>
+        <span>Amount of snapshots: {data?.summary?.length}</span>
         <span>First archive: {beautifyDate(data?.summary[0]?.date)}</span>
         <span>Now viewing from {beautifyDate(activePeriod?.from)} to {beautifyDate(activePeriod?.to)}</span>
     </div>

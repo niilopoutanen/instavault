@@ -1,6 +1,7 @@
 import { Config } from '$lib/backend/config';
 import { json } from "@sveltejs/kit";
 import fs from "fs";
+import path from 'path';
 
 export function GET() {
     verify();
@@ -14,14 +15,21 @@ export function GET() {
 export async function POST({ request }) {
     const config = await request.json();
     const path = "./data/config.json";
+
     fs.writeFileSync(path, JSON.stringify(config, null, 4), "utf8");
     return json({ message: "Config updated successfully" });
 }
 
 function verify() {
-    const path = "./data/config.json";
-    if (!fs.existsSync(path)) {
+    const configPath = path.join('./data', 'config.json');
+    const dir = path.dirname(configPath);
+
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+
+    if (!fs.existsSync(configPath)) {
         let config = new Config();
-        fs.writeFileSync(path, JSON.stringify(config));
+        fs.writeFileSync(configPath, JSON.stringify(config));
     }
 }

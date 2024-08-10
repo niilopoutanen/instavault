@@ -5,8 +5,9 @@ import fs from 'fs';
 
 export async function GET({ params }) {
     const username = params.username;
-
     const latest = getLatestSnapshotPath(username);
+    if(!latest) return json(null);
+    
     const followersFile = `${latest}/followers.json`;
     const followingFile = `${latest}/following.json`;
 
