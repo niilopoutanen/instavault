@@ -41,3 +41,5 @@
 
 ## Contact
 <a href="mailto:niilo@poutanen.dev">niilo@poutanen.dev</a>
+
+<p>Not in any way associated with Meta Platforms, Inc.</p>
