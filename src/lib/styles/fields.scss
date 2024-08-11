@@ -1,7 +1,7 @@
 @use 'vars' as *;
 
 input,
-textarea{
+textarea {
     background-color: light-dark($layer-2-light, $layer-2-dark);
     padding: 15px 20px;
 
@@ -15,14 +15,14 @@ textarea{
     border: none;
     outline: none;
 
-    &.center{
+    &.center {
         text-align: center;
     }
 }
 
 
 button.button,
-a.button{
+a.button {
     display: flex !important;
     align-items: center;
     gap: 5px;
@@ -43,35 +43,39 @@ a.button{
     box-sizing: border-box;
 
     transition: background-color 0.2s, transform 0.2s;
-    &:hover{
+
+    &:hover {
         background-color: darken($accent, 5%);
     }
 
-    &:active{
+    &:active {
         transform: scale(0.95);
     }
 
-    &.secondary{
+    &.secondary {
         background-color: light-dark($layer-3-light, $layer-3-dark);
         padding: 5px 10px;
         border-radius: 5px;
         font-size: 13px;
     }
-    &.layer-2{
+
+    &.layer-2 {
         background-color: light-dark($layer-2-light, $layer-2-dark);
         color: CanvasText;
     }
-    &.layer-3{
+
+    &.layer-3 {
         background-color: light-dark($layer-3-light, $layer-3-dark);
         color: CanvasText;
     }
-    &.small{
+
+    &.small {
         padding: 5px 10px;
         font-weight: 500;
         font-size: 13px;
     }
 
-    &.center{
+    &.center {
         text-align: center;
         justify-content: center;
     }
@@ -79,10 +83,63 @@ a.button{
 
 }
 
-select{
+select {
     border: none;
     outline: none;
     background-color: light-dark($layer-3-light, $layer-3-dark);
     padding: 5px 20px !important;
     border-radius: 5px !important;
+}
+
+
+.switch {
+    position: relative;
+    width: 40px;
+}
+
+.switch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.switch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    height: 20px;
+    padding: 0;
+    border: 2px solid light-dark($layer-3-light, $layer-3-dark);
+    line-height: 20px;
+    border-radius: 20px;
+    background-color: light-dark($layer-3-light, $layer-3-dark);
+    transition: background-color 0.2s ease-in, border 0.2s ease-in;
+}
+
+.switch-label:before {
+    content: "";
+    display: block;
+    width: 20px;
+    margin: 0px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 18px;
+    border: 2px solid light-dark($layer-3-light, $layer-3-dark);
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.switch-checkbox:checked+.switch-label {
+    background-color: $accent;
+}
+
+.switch-checkbox:checked+.switch-label,
+.switch-checkbox:checked+.switch-label:before {
+    border-color: $accent;
+}
+
+.switch-checkbox:checked+.switch-label:before {
+    right: 0px;
 }

@@ -1,5 +1,5 @@
 <script>
-    import { ChartType, getConfig,  writeValue } from "$lib/backend/config";
+    import { ChartType, getConfig, writeValue } from "$lib/backend/config";
     import { onMount } from "svelte";
     let config;
 
@@ -11,10 +11,17 @@
         load();
     });
 
-    function load(){
+    function load() {
         loadDropdown("chartType", controls.chartType);
+        loadSwitch("sidebarCollapsed", controls.sidebarSwitch);
+
         controls.chartType.addEventListener("change", (event) => onSelectChange(event, "chartType"));
+        controls.sidebarSwitch.addEventListener("change", (event) => {
+            onSwitchChange(event, "sidebarCollapsed");
+            location.reload();
+        });
     }
+
     async function onButtonClick(key) {
         writeValue(key, config[key] ? false : true);
         config = await getConfig();
@@ -26,10 +33,22 @@
         config = await getConfig();
     }
 
-    async function loadDropdown(key, object){
-        if(!object) return;
+    async function onSwitchChange(event, key) {
+        const value = event.target.checked;
+        writeValue(key, value);
+        config = await getConfig();
+    }
+
+    async function loadDropdown(key, object) {
+        if (!object) return;
         config = await getConfig();
         object.value = config[key];
+    }
+
+    async function loadSwitch(key, object) {
+        if (!object) return;
+        config = await getConfig();
+        object.checked = config[key];
     }
 </script>
 
@@ -42,6 +61,14 @@
             <option value={ChartType.Line}>Line</option>
             <option value={ChartType.Bar}>Bar</option>
         </select>
+    </div>
+
+    <div class="control">
+        <p class="nomargin title">Collapsed sidebar</p>
+        <div class="switch">
+            <input type="checkbox" name="switch" class="switch-checkbox" id="sidebarSwitch" tabindex="0" bind:this={controls.sidebarSwitch}>
+            <label class="switch-label" for="sidebarSwitch"></label>
+        </div>
     </div>
 
     <div class="control">

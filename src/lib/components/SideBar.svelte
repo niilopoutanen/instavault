@@ -11,10 +11,6 @@
         config = await getConfig(); 
         collapsed = config.sidebarCollapsed;
     });
-    async function toggleCollapse(){
-        collapsed = !collapsed;
-        writeValue("sidebarCollapsed", collapsed);
-    }
 </script>
 
 <div id="sidebar" class="{collapsed ? "collapsed" : ""}">
@@ -41,10 +37,6 @@
     </div>
 
     <div class="section">
-        <button class="button layer-3 fullwidth center" on:click={toggleCollapse}>
-            <p class="nomargin">Collapse</p>
-            <Icon name="menu" />
-        </button>
         <a class="button layer-3 fullwidth center" href="/dashboard/settings">
             <p class="nomargin">Settings</p>
             <Icon name="settings" />
