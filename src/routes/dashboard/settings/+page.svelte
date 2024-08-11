@@ -84,6 +84,7 @@
         flex-direction: column;
         gap: 20px;
         max-width: 800px;
+        padding-right: 40px;
     }
     .control {
         background-color: light-dark($layer-2-light, $layer-2-dark);

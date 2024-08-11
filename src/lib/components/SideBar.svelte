@@ -7,13 +7,31 @@
 
     let collapsed = false;
     let config;
-    beforeUpdate(async () => {
-        config = await getConfig(); 
+
+
+    onMount(async () => {
+        config = await getConfig();
         collapsed = config.sidebarCollapsed;
+
+        const handleResize = () => {
+            if(window.innerWidth < 800){
+                if(!collapsed){
+                    collapsed = true;
+                }
+            }
+            else{
+                if(collapsed && !config.sidebarCollapsed){
+                    collapsed = false;
+                }
+            }
+
+        };
+
+        window.addEventListener("resize", handleResize);
     });
 </script>
 
-<div id="sidebar" class="{collapsed ? "collapsed" : ""}">
+<div id="sidebar" class={collapsed ? "collapsed" : ""}>
     <a class="heading" href="/dashboard">
         <img src="/favicon.svg" alt="Logo" />
         <h1>InstaVault</h1>
