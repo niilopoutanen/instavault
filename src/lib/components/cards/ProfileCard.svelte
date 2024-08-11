@@ -3,15 +3,19 @@
     import Card from "../Card.svelte";
     import ListCard from "./ListCard.svelte";
     export let data;
-
 </script>
 
 <div class="header span4">
     <Card class="center profilecard">
         <object class="pfp" data="/data/{data?.account?.username}/pfp.jpg" type="image/jpeg" title="Profile">
-            <img src="/assets/pfp_placeholder.jpg" alt="Profile"/>
+            <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
         </object>
-        <p class="username">{data?.account?.username}</p>
+        <div class="title">
+            <p class="username">{data?.account?.username}</p>
+            {#if data?.account?.verified}
+                <img class="verified" src="/icons/verified.svg" alt="Verified account" />
+            {/if}
+        </div>
         <div class="details">
             <div class="group">
                 <span>Followers</span>
@@ -27,61 +31,70 @@
     <ListCard title="Following" data={data.following} maxHeight={350} />
 </div>
 
-
-
 <style lang="scss">
     @use "$lib/styles/vars.scss" as *;
-    .header{
+    .header {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 40px;
     }
-    :global(.profilecard){
+    :global(.profilecard) {
         width: 350px;
         min-width: 300px;
         flex-grow: 1;
-        .pfp{
+        .pfp {
             border-radius: 50%;
             width: 200px;
             height: 200px;
             background-color: light-dark($layer-3-light, $layer-3-dark);
 
-            img{
+            img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
             }
         }
 
-        .username{
-            color: CanvasText;
-            font-weight: 600;
-            font-size: 22px;
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .username {
+                color: CanvasText;
+                font-weight: 600;
+                font-size: 22px;
+            }
+            img.verified {
+                width: 15px;
+                height: 15px;
+            }
         }
-        .details{
+
+        .details {
             width: 100%;
             display: flex;
             justify-content: space-around;
             margin: 20px 0;
-            .group{
+            .group {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
 
-                span{
+                span {
                     color: $text-secondary;
                 }
 
-                p{
+                p {
                     font-size: 28px;
                     font-weight: bold;
                 }
             }
         }
     }
-    :global(.list){
+    :global(.list) {
         width: 30% !important;
         flex-grow: 1;
     }
