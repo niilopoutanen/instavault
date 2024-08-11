@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import Card from "../Card.svelte";
     import ListCard from "./ListCard.svelte";
-    export let data;
+    import type { Snapshot } from "$lib/backend/models";
+    export let data: Snapshot;
 </script>
 
 <div class="header span4">
@@ -11,11 +12,12 @@
             <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
         </object>
         <div class="title">
-            <p class="username">{data?.account?.username}</p>
+            <p class="username nomargin">{data?.account?.username}</p>
             {#if data?.account?.verified}
                 <img class="verified" src="/icons/verified.svg" alt="Verified account" />
             {/if}
         </div>
+        <p class="desc nomargin">{data?.account?.biography}</p>
         <div class="details">
             <div class="group">
                 <span>Followers</span>
@@ -60,6 +62,8 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            margin-top: 15px;
+            margin-bottom: 5px;
 
             .username {
                 color: CanvasText;
@@ -72,6 +76,11 @@
             }
         }
 
+        .desc{
+            text-align: center;
+            color: $text-secondary;
+            font-size: 15px;
+        }
         .details {
             width: 100%;
             display: flex;
