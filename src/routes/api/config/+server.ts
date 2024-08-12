@@ -21,15 +21,14 @@ export async function POST({ request }) {
 }
 
 function verify() {
-    const configPath = path.join('./data', 'config.json');
-    const dir = path.dirname(configPath);
-
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+    const rootDir = "./data";
+    const configPath = './data/config.json';
+    if (!fs.existsSync(rootDir)) {
+        fs.mkdirSync(rootDir, { recursive: true });
     }
 
     if (!fs.existsSync(configPath)) {
         let config = new Config();
-        fs.writeFileSync(configPath, JSON.stringify(config));
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 4));
     }
 }
