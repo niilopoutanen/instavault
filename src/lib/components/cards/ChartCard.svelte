@@ -5,7 +5,7 @@
     import { beautifyDate, dataByRange } from "$lib/backend/utils";
     import type { Period, Summary } from "$lib/backend/models";
     import { getConfig, Config, ChartType } from "$lib/backend/config";
-
+    import { page } from "$app/stores";
 
     let chart;
     let canvas;
@@ -84,7 +84,7 @@
         return chartData;
     }
     onMount(async () => {
-        config = await getConfig();
+        config = await getConfig($page.url.hostname);
         const data = getData();
 
         chart = new Chart(canvas, {

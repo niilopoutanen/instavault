@@ -7,12 +7,13 @@
     import UserActivityCard from "$lib/components/cards/UserActivityCard.svelte";
     import { writeValue } from "$lib/backend/config";
     import { beautifyDate } from "$lib/backend/utils";
+    import { page } from "$app/stores";
     export let data: Snapshot;
 
     export let activePeriod: Period;
 
     $: {
-        writeValue("lastActiveUser", data?.account?.username);
+        writeValue("lastActiveUser", data?.account?.username, $page.url.origin);
     }
 </script>
 

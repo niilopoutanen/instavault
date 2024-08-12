@@ -3,8 +3,10 @@
     import { goto } from "$app/navigation";
     import Center from "$lib/components/Center.svelte";
     import Accordion from "$lib/components/Accordion.svelte";
+    import { page } from "$app/stores";
+    
     function next() {
-        writeValue("introDone", true);
+        writeValue("introDone", true, $page.url.origin);
         goto("/dashboard");
     }
 

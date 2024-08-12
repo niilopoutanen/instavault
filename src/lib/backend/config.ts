@@ -9,15 +9,15 @@ export enum ChartType{
     Line = "line"
 }
 
-export async function getConfig(){
-    const res = await fetch("http://localhost:5000/api/config");
+export async function getConfig(host){
+    const res = await fetch(host + "/api/config");
     return await res.json();
 }
 
-export async function writeValue(key: string, value: any){
-    const config = await getConfig();
+export async function writeValue(key: string, value: any, host){
+    const config = await getConfig(host);
     config[key] = value;
-    await fetch("http://localhost:5000/api/config", {
+    await fetch(host + "/api/config", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

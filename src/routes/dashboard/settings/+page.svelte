@@ -1,12 +1,13 @@
 <script>
     import { ChartType, getConfig, writeValue } from "$lib/backend/config";
     import { onMount } from "svelte";
+    import { page } from "$app/stores";
     let config;
 
     let controls = {};
 
     onMount(async () => {
-        config = await getConfig();
+        config = await getConfig($page.url.origin);
         console.log(config);
         load();
     });
@@ -23,31 +24,31 @@
     }
 
     async function onButtonClick(key) {
-        writeValue(key, config[key] ? false : true);
-        config = await getConfig();
+        writeValue(key, config[key] ? false : true, $page.url.origin);
+        config = await getConfig($page.url.origin);
     }
 
     async function onSelectChange(event, key) {
         const value = event.target.value;
-        writeValue(key, value);
-        config = await getConfig();
+        writeValue(key, value, $page.url.origin);
+        config = await getConfig($page.url.origin);
     }
 
     async function onSwitchChange(event, key) {
         const value = event.target.checked;
-        writeValue(key, value);
-        config = await getConfig();
+        writeValue(key, value, $page.url.origin);
+        config = await getConfig($page.url.origin);
     }
 
     async function loadDropdown(key, object) {
         if (!object) return;
-        config = await getConfig();
+        config = await getConfig($page.url.origin);
         object.value = config[key];
     }
 
     async function loadSwitch(key, object) {
         if (!object) return;
-        config = await getConfig();
+        config = await getConfig($page.url.origin);
         object.checked = config[key];
     }
 </script>

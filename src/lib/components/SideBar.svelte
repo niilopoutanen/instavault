@@ -1,7 +1,7 @@
 <script>
     import { page } from "$app/stores";
     import Icon from "./Icon.svelte";
-    import { writeValue, getConfig } from "$lib/backend/config";
+    import { getConfig } from "$lib/backend/config";
     import { beforeUpdate, onMount } from "svelte";
     export let accounts = [];
 
@@ -10,7 +10,7 @@
 
 
     onMount(async () => {
-        config = await getConfig();
+        config = await getConfig($page.url.origin);
         collapsed = config.sidebarCollapsed;
 
         const handleResize = () => {

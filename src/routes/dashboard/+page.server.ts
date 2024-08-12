@@ -8,7 +8,7 @@ export async function load(props) {
         redirect(307, "/import");
     }
     
-    const config = await getConfig();
+    const config = await getConfig(props.url.origin);
 
     let userToDisplay: string;
     if(config.lastActiveUser && config.lastActiveUser != ""){
