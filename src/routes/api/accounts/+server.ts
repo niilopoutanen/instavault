@@ -10,6 +10,7 @@ export async function GET() {
     for (const user of users) {
         if (user.isDirectory()) {
             const accountPath = `${dataPath}/${user.name}/account.json`;
+            if(!fs.existsSync(accountPath)) continue;
             const accountData = JSON.parse(fs.readFileSync(accountPath, 'utf8'));
             accounts.push(accountData);
         }
