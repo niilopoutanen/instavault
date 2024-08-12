@@ -84,7 +84,7 @@
         return chartData;
     }
     onMount(async () => {
-        config = await getConfig($page.url.hostname);
+        config = await getConfig($page.url.origin);
         const data = getData();
 
         chart = new Chart(canvas, {

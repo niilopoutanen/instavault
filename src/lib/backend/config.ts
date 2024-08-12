@@ -9,12 +9,12 @@ export enum ChartType{
     Line = "line"
 }
 
-export async function getConfig(host){
+export async function getConfig(host: string){
     const res = await fetch(host + "/api/config");
     return await res.json();
 }
 
-export async function writeValue(key: string, value: any, host){
+export async function writeValue(key: string, value: any, host: string){
     const config = await getConfig(host);
     config[key] = value;
     await fetch(host + "/api/config", {
