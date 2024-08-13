@@ -1,10 +1,12 @@
 <script>
     import { onMount } from "svelte";
     import { page } from "$app/stores";
+    import TutorialParts from "$lib/components/TutorialParts.svelte";
     const username = $page.url.searchParams.get("username");
 </script>
 
 <h1 class="nomargin">Run the script</h1>
+<TutorialParts/>
 <ol class="steps">
     <li>Open instagram</li>
     <li>Right click and select "Inspect"</li>
