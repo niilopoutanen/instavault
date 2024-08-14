@@ -12,7 +12,7 @@
     }
 </script>
 
-<h1 class="nomargin">Run the script</h1>
+<h1 class="nomargin">How to run the script?</h1>
 <TutorialParts/>
 
 <div class="controls">

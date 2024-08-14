@@ -23,7 +23,7 @@
         },
         {
             src: "/tutorials/copy-result.mp4",
-            title: '4. Wait for the script to finish and copy the result'
+            title: '4. Wait for the script to finish and copy the result. If you are using Safari, you have to copy the logged value using copy($2)'
         },
     ];
 
