@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
     import { page } from "$app/stores";
     import Icon from "$lib/components/Icon.svelte";
+    import { getConfig } from "$lib/backend/config";
+    import { goto } from "$app/navigation";
     let codeBlock;
     const username = $page.url.searchParams.get("username");
 
@@ -18,6 +20,16 @@
             codeBlock.innerHTML = content;
         }
     });
+
+    async function next(){
+        const config = await getConfig($page.url.origin);
+        if(config.skipConsoleTutorial){
+            goto("/import/paste?username=" + username);
+        }
+        else{
+            goto("/import/how?username=" + username);
+        }
+    }
 </script>
 
 
@@ -29,7 +41,7 @@
         <Icon name="copy" width={"16px"} height={"16px"} />
         <p class="nomargin">Copy</p>
     </button>
-    <a class="button" style=" view-transition-name: nextbtn;" href="/import/console?username={username}">Continue</a>
+    <button class="button" style="view-transition-name: nextbtn;" on:click={next}>Continue</button>
 </div>
 
 <style lang="scss">

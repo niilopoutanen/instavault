@@ -22,6 +22,8 @@
 	"dependencies": {
 		"@rive-app/canvas": "^2.19.4",
 		"chart.js": "^4.4.3",
-		"svelte-check": "^3.8.4"
+		"embla-carousel-svelte": "^8.1.8",
+		"svelte-check": "^3.8.4",
+		"swiper": "^11.1.9"
 	}
 }
