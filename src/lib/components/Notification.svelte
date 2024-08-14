@@ -49,7 +49,7 @@
             min-width: 200px;
             border-radius: 1000px;
             padding: 20px 40px;
-            background-color: #ffffff0e;
+            background-color: light-dark(#0000000e, #ffffff0e);
             backdrop-filter: blur(10px);
             display: flex;
             align-items: center;

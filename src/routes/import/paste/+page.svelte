@@ -25,7 +25,7 @@
 </script>
 
 <h1 class="nomargin">Paste here</h1>
-<p class="nomargin">Paste the copied result from console to this box:</p>
+<p class="nomargin align-center">Paste the copied result from the console to this box:</p>
 <textarea class="scroll" bind:this={textArea}></textarea>
 <button class="button" style="view-transition-name: nextbtn;" on:click={process}>Done</button>
 
