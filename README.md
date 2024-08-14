@@ -15,6 +15,8 @@
 
 </p>
 
+![dashboard](https://github.com/user-attachments/assets/3b6d27ca-75eb-4acf-b1a1-ef0865734a96)
+
 <br>
 
 ## Requirements
