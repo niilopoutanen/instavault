@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import Swiper from "swiper";
     import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -8,6 +8,33 @@
     import "swiper/css/pagination";
 
     let swiper;
+    let videos = [
+        {
+            src: "https://w3schools.com/html/mov_bbb.mp4",
+            title: "1. Go to Instagram",
+            desc: "Description",
+        },
+        {
+            src: "https://w3schools.com/html/mov_bbb.mp4",
+            title: "2. Open browser console",
+            desc: "Description",
+        },
+        {
+            src: "https://w3schools.com/html/mov_bbb.mp4",
+            title: '3. Go to "Console" tab',
+            desc: "Description",
+        },
+        {
+            src: "https://w3schools.com/html/mov_bbb.mp4",
+            title: '4. Paste the copied code into the console',
+            desc: "Description",
+        },
+        {
+            src: "https://w3schools.com/html/mov_bbb.mp4",
+            title: '5. Wait for the script to finish and copy the result',
+            desc: "Description",
+        },
+    ];
 
     onMount(() => {
         swiper = new Swiper(".swiper", {
@@ -19,16 +46,16 @@
             },
         });
 
-        const videos = document.querySelectorAll(".swiper-slide video");
-        playVideo(videos[0]);
+        const videoElements: NodeListOf<HTMLVideoElement> = document.querySelectorAll(".swiper-slide video");
+        playVideo(videoElements[0]);
 
         swiper.on("activeIndexChange", (event) => {
             const index = event.activeIndex;
-            const activeVideo = videos[index];
+            const activeVideo = videoElements[index];
 
             playVideo(activeVideo);
 
-            videos.forEach((video, videoIndex) => {
+            videoElements.forEach((video, videoIndex) => {
                 if (videoIndex !== index) {
                     video.pause();
                 }
@@ -36,7 +63,7 @@
         });
     });
 
-    function playVideo(video) {
+    function playVideo(video: HTMLVideoElement) {
         video.play();
         video.addEventListener("ended", () => {
             swiper.slideNext();
@@ -47,24 +74,22 @@
 <swiper-container class="tutorial">
     <div class="swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <video src="https://w3schools.com/html/mov_bbb.mp4" title="1" muted></video>
-            </div>
-            <div class="swiper-slide">
-                <video src="https://w3schools.com/html/mov_bbb.mp4" title="2" muted></video>
-            </div>
-            <div class="swiper-slide">
-                <video src="https://w3schools.com/html/mov_bbb.mp4" title="3" muted></video>
-            </div>
+            {#each videos as video}
+                <div class="swiper-slide">
+                    <video src={video.src} title={video.title} muted/>
+                    <p class="title">{video.title}</p>
+                </div>
+            {/each}
         </div>
         <div class="swiper-pagination"></div>
     </div>
 </swiper-container>
 
 <style lang="scss">
+    @use "$lib/styles/vars.scss" as *;
     .tutorial {
         width: 100%;
-        height: 300px;
+        height: auto;
 
         .swiper {
             width: 100%;
@@ -73,9 +98,20 @@
 
         video {
             width: 100%;
-            height: 100%;
+            height: 300px;
             border-radius: 10px;
             object-fit: cover;
+        }
+
+        .title{
+            color: $text-secondary;
+
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+        .desc{
+            color: $text-secondary;
+            margin: 0;
         }
     }
 </style>

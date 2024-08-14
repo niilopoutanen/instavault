@@ -29,7 +29,7 @@
         <Icon name="copy" width={"16px"} height={"16px"} />
         <p class="nomargin">Copy</p>
     </button>
-    <a class="button" style=" view-transition-name: nextbtn;" href="/import/console?username={username}">Continue</a>
+    <a class="button" style=" view-transition-name: nextbtn;" href="/import/how?username={username}">Continue</a>
 </div>
 
 <style lang="scss">
