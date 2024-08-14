@@ -35,6 +35,10 @@
             autoplay: {
                 disableOnInteraction: true,
             },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
         });
 
         const videoElements: NodeListOf<HTMLVideoElement> = document.querySelectorAll(".swiper-slide video");
@@ -73,6 +77,8 @@
             {/each}
         </div>
         <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev swiper-button"></div>
+        <div class="swiper-button-next swiper-button"></div>
     </div>
 </swiper-container>
 
@@ -103,6 +109,14 @@
         .desc{
             color: $text-secondary;
             margin: 0;
+        }
+
+        .swiper-button{
+            --swiper-navigation-size: 15px;
+            --swiper-navigation-color: #FFFFFF;
+            background-color: #0000007c;
+            padding: 5px;
+            border-radius: 5px;
         }
     }
 </style>
