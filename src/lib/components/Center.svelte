@@ -18,7 +18,7 @@
 
         .content {
             width: 100%;
-            max-width: 450px;
+            max-width: clamp(20%, 450px, 90%);
             height: auto;
             display: flex;
             flex-direction: column;
