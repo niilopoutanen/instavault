@@ -1,5 +1,6 @@
 export class Config{
     introDone: boolean = false;
+    skipConsoleTutorial: boolean = false;
     chartType: ChartType = ChartType.Line;
     lastActiveUser: string = "";
     sidebarCollapsed: boolean = false;
