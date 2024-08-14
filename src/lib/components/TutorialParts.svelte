@@ -10,29 +10,20 @@
     let swiper;
     let videos = [
         {
-            src: "https://w3schools.com/html/mov_bbb.mp4",
-            title: "1. Go to Instagram",
-            desc: "Description",
+            src: "/tutorials/open-console.mp4",
+            title: "1. Open browser console"
         },
         {
-            src: "https://w3schools.com/html/mov_bbb.mp4",
-            title: "2. Open browser console",
-            desc: "Description",
+            src: "/tutorials/goto-console.mp4",
+            title: '2. Go to "Console" tab'
         },
         {
-            src: "https://w3schools.com/html/mov_bbb.mp4",
-            title: '3. Go to "Console" tab',
-            desc: "Description",
+            src: "/tutorials/paste-code.mp4",
+            title: '3. Paste the copied code into the console'
         },
         {
-            src: "https://w3schools.com/html/mov_bbb.mp4",
-            title: '4. Paste the copied code into the console',
-            desc: "Description",
-        },
-        {
-            src: "https://w3schools.com/html/mov_bbb.mp4",
-            title: '5. Wait for the script to finish and copy the result',
-            desc: "Description",
+            src: "/tutorials/copy-result.mp4",
+            title: '4. Wait for the script to finish and copy the result'
         },
     ];
 
@@ -76,7 +67,7 @@
         <div class="swiper-wrapper">
             {#each videos as video}
                 <div class="swiper-slide">
-                    <video src={video.src} title={video.title} muted/>
+                    <video src={video.src} title={video.title} muted loop/>
                     <p class="title">{video.title}</p>
                 </div>
             {/each}
