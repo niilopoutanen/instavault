@@ -32,10 +32,17 @@
 ```
 ## How does it work?
 <ul>
-  <li>The app uses a code injected into browser console. No login details are needed.</li>
+  <li>The app uses a script injected into browser console. No login details are needed.</li>
   <li>The script uses encrypted hash keys, which means that if Instagram changes those at any moment, you can no longer fetch new data.</li>
   <li>Instagram warns about not pasting scripts in the console, but if you have suspicions, see the code for yourself: <a href="https://github.com/niilopoutanen/instavault/blob/main/static/script.js">The console script</a>
-  <li>No accounts have been banned from using the app, but use at your own risk.</li>
+</ul>
+
+## Things to note
+<ul>
+  <li>The data from Instagram's API is not always up to date. In some cases you might have a few days of delay until account changes show up.</li>
+  <li>Large accounts are not supported. The script loads accounts in batches of 50 users at a time, so accounts with more than 10 000 followers will take time, and take up lots of RAM. The rate limit is in place to not get blocked by the API.</li>
+  <li>Sometimes accounts might report invalid data. For example if someone has blocked you, they might not appear in other account's follower list, and therefore show an invalid follower count.</li>
+    <li>No accounts have been banned from using the app, but use at your own risk.</li>
   <li>Login details are not asked and not saved anywhere, so they will stay safe.</li>
 </ul>
 
