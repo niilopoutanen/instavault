@@ -1,10 +1,13 @@
 <script>
     import { Periods } from "$lib/backend/models";
+    import { writeValue } from "$lib/backend/config";
+    import { page } from "$app/stores";
 
     export let activePeriod = Periods.all[0];
     export let connected = false;
     function setActiveItem(item) {
         activePeriod = item;
+        writeValue("defaultPeriod", item, $page.url.origin);
     }
 </script>
 

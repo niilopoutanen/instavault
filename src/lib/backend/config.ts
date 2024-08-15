@@ -1,9 +1,12 @@
+import { Periods, type Period } from "./models";
+
 export class Config{
     introDone: boolean = false;
     skipConsoleTutorial: boolean = false;
     chartType: ChartType = ChartType.Line;
     lastActiveUser: string = "";
     sidebarCollapsed: boolean = false;
+    defaultPeriod: Period = Periods.days7;
 }
 export enum ChartType{
     Bar = "bar",
