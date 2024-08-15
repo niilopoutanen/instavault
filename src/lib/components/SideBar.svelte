@@ -45,8 +45,8 @@
                 class:active={$page.url.pathname === `/dashboard/account/${account.username}`}
                 href="/dashboard/account/{account.username}"
             >
-                <img class="pfp" src="/data/accounts/{account.username}/pfp.jpg" alt="Profile" />
-                <p class="username nomargin">{account.username}</p>
+                <img class="pfp circle" src="/data/accounts/{account.username}/pfp.jpg" alt="Profile" />
+                <p class="name nomargin">{account.username}</p>
                 {#if account.verified}
                     <img class="verified" src="/icons/verified.svg" alt="Verified account" />
                 {/if}
@@ -54,14 +54,21 @@
         {/each}
     </div>
 
-    <div class="section">
-        <a class="button layer-3 fullwidth center" href="/dashboard/settings">
-            <p class="nomargin">Settings</p>
-            <Icon name="settings" />
+
+    <div class="section fullheight">
+        <span class="title">Tools</span>
+
+        <a class="account item" class:active={$page.url.pathname === `/dashboard/settings`} href="/dashboard/settings">
+            <div class="circle">
+                <Icon name="settings" width={"18px"} height={"18px"}/>
+            </div>
+            <p class="name nomargin">Settings</p>
         </a>
+    </div>
+    <div class="section">
         <a class="button fullwidth center" href="/import">
+            <Icon name="plus" class="invert collapse" />
             <p class="nomargin">Add new</p>
-            <Icon name="plus" class="invert" />
         </a>
     </div>
 </div>
@@ -107,7 +114,7 @@
                 font-size: 14px;
                 font-weight: 500;
             }
-            :global(.icon) {
+            :global(.icon.collapse) {
                 display: none;
             }
             .item {
@@ -131,7 +138,11 @@
                 }
 
                 &.account {
-                    img.pfp {
+                    .circle{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: light-dark($layer-3-light, $layer-3-dark);;
                         width: 30px;
                         height: 30px;
                         border-radius: 50%;
@@ -141,7 +152,7 @@
                         height: 15px;
                         margin-left: -5px;
                     }
-                    .username {
+                    .name {
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -161,7 +172,7 @@
             }
             .account {
                 justify-content: center;
-                .username {
+                .name {
                     display: none;
                 }
             }
