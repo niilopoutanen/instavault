@@ -3,7 +3,7 @@ import path from 'path';
 import type { Account, Summary } from './models';
 
 export function getLatestSnapshotPath(username: string): string {
-    const accountPath = `./data/${username}`;
+    const accountPath = `./data/accounts/${username}`;
     if(!fs.existsSync(accountPath)){
         return null;
     }
@@ -22,7 +22,7 @@ export function getLatestSnapshotPath(username: string): string {
     return latestPath;
 }
 export function loadAccountData(username): Account {
-    const accountFile = `./data/${username}/account.json`;
+    const accountFile = `./data/accounts/${username}/account.json`;
     const accountData = JSON.parse(fs.readFileSync(accountFile, 'utf8'));
     return accountData;
 }
@@ -54,7 +54,7 @@ export function getArrayLength(file) {
     return data.length;
 }
 export function getAllSnapshots(username) {
-    const accountPath = `./data/${username}`;
+    const accountPath = `./data/accounts/${username}`;
 
     const dates = fs.readdirSync(accountPath, { withFileTypes: true });
     let snapshots = [];
@@ -144,7 +144,7 @@ export function beautifyDate(date: Date): string {
 
 
 export function verify(username) {
-    const accountPath = `./data/${username}`
+    const accountPath = `./data/accounts/${username}`
 
     if (!fs.existsSync(accountPath)) {
         fs.mkdirSync(accountPath, { recursive: true });

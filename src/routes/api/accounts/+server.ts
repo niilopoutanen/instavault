@@ -2,7 +2,7 @@ import fs from "fs";
 import { json } from "@sveltejs/kit";
 import { getDay, getTime } from "$lib/backend/utils.js";
 export async function GET() {
-    const dataPath = "./data";
+    const dataPath = "./data/accounts";
     if(!fs.existsSync(dataPath)) return json(null);
 
     const users = fs.readdirSync(dataPath, { withFileTypes: true })
@@ -21,7 +21,7 @@ export async function GET() {
 
 export async function POST({ request }) {
     const data = JSON.parse(await request.json());
-    const userPath = `./data/${data.account.username}`;
+    const userPath = `./data/accounts/${data.account.username}`;
     const snapshotPath = `${userPath}/${getDay()}/${getTime()}`;
     fs.mkdirSync(snapshotPath, { recursive: true });
 

@@ -45,7 +45,7 @@
                 class:active={$page.url.pathname === `/dashboard/account/${account.username}`}
                 href="/dashboard/account/{account.username}"
             >
-                <img class="pfp" src="/data/{account.username}/pfp.jpg" alt="Profile" />
+                <img class="pfp" src="/data/accounts/{account.username}/pfp.jpg" alt="Profile" />
                 <p class="username nomargin">{account.username}</p>
                 {#if account.verified}
                     <img class="verified" src="/icons/verified.svg" alt="Verified account" />

@@ -8,7 +8,7 @@
 
 <div class="header span4">
     <Card class="center profilecard">
-        <object class="pfp" data="/data/{data?.account?.username}/pfp.jpg" type="image/jpeg" title="Profile">
+        <object class="pfp" data="/data/accounts/{data?.account?.username}/pfp.jpg" type="image/jpeg" title="Profile">
             <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
         </object>
         <div class="title">
