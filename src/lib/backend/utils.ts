@@ -110,8 +110,8 @@ export function getTime() {
 export function getDateFromPath(pathStr: string): Date {
     const segments = pathStr.split(path.sep);
 
-    const dateSegment = segments[2];
-    const timeSegment = segments[3];
+    const dateSegment = segments[3];
+    const timeSegment = segments[4];
 
     const [year, month, day] = dateSegment.split('-').map(Number);
     const [hours, minutes] = timeSegment.split('-').map(Number);
