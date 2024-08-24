@@ -71,7 +71,6 @@ async function fetchFollowings(userId, savePfps) {
 }
 
 async function main() {
-    const savePfps = false;
     clear();
     try {
         console.log(`Process started`);
@@ -86,8 +85,33 @@ async function main() {
             followers: [],
             following: [],
         }
-        data.followers = await fetchFollowers(userId, savePfps);
-        data.following = await fetchFollowings(userId, savePfps);
+        data.followers = await fetchFollowers(userId, false);
+        data.following = await fetchFollowings(userId, false);
+
+        console.log(data);
+    } catch (err) {
+        console.error({ err });
+    }
+}
+
+async function getPfps(){
+    clear();
+    try {
+        const username = "usernamehere";
+        console.log(`Loading profile pictures from ${username}`);
+
+        const userQueryRes = await fetch(`https://www.instagram.com/web/search/topsearch/?query=${username}`);
+        const userQueryJson = await userQueryRes.json();
+        const userId = userQueryJson.users.map(u => u.user).find(u => u.username === username).pk;
+        const followers = await fetchFollowers(userId, true);
+        const following = await fetchFollowings(userId, true);
+
+        const data = [...followers, ...following].reduce((acc, cur) => {
+            if (!acc.some(f => f.id === cur.id)) {
+                acc.push(cur);
+            }
+            return acc;
+        }, []);
 
         console.log(data);
     } catch (err) {
@@ -114,4 +138,12 @@ async function getProfileData(username) {
         biography: json.data.user.biography,
     }
 }
-main();
+
+
+const savePfps = false;
+if(savePfps){
+    getPfps();
+}
+else{
+    main();
+}

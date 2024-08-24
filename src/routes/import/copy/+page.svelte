@@ -19,9 +19,11 @@
             let content = await script.text();
             content = content.replace("usernamehere", username);
 
+            /*
             if(config.savePfps){
                 content = content.replace("savePfps = false", "savePfps = true");
-            }
+            }*/
+           
             codeBlock.innerHTML = content;
         }
     });
