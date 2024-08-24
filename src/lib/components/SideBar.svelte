@@ -8,23 +8,20 @@
     let collapsed = false;
     let config;
 
-
     onMount(async () => {
         config = await getConfig($page.url.origin);
         collapsed = config.sidebarCollapsed;
 
         const handleResize = () => {
-            if(window.innerWidth < 800){
-                if(!collapsed){
+            if (window.innerWidth < 800) {
+                if (!collapsed) {
                     collapsed = true;
                 }
-            }
-            else{
-                if(collapsed && !config.sidebarCollapsed){
+            } else {
+                if (collapsed && !config.sidebarCollapsed) {
                     collapsed = false;
                 }
             }
-
         };
 
         window.addEventListener("resize", handleResize);
@@ -54,15 +51,21 @@
         {/each}
     </div>
 
-
     <div class="section fullheight">
         <span class="title">Tools</span>
 
-        <a class="account item" class:active={$page.url.pathname === `/dashboard/settings`} href="/dashboard/settings">
+        <a class=" item" class:active={$page.url.pathname === `/dashboard/settings`} href="/dashboard/settings">
             <div class="circle">
-                <Icon name="settings" width={"18px"} height={"18px"}/>
+                <Icon name="settings" width={"18px"} height={"18px"} />
             </div>
             <p class="name nomargin">Settings</p>
+        </a>
+
+        <a class=" item" class:active={$page.url.pathname === `/dashboard/gallery`} href="/dashboard/gallery">
+            <div class="circle">
+                <Icon name="settings" width={"18px"} height={"18px"} />
+            </div>
+            <p class="name nomargin">Gallery</p>
         </a>
     </div>
     <div class="section">
@@ -137,26 +140,24 @@
                     background-color: light-dark($layer-3-light, $layer-3-dark);
                 }
 
-                &.account {
-                    .circle{
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        background-color: light-dark($layer-3-light, $layer-3-dark);;
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                    }
-                    img.verified {
-                        width: 15px;
-                        height: 15px;
-                        margin-left: -5px;
-                    }
-                    .name {
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
+                .circle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: light-dark($layer-3-light, $layer-3-dark);
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                }
+                img.verified {
+                    width: 15px;
+                    height: 15px;
+                    margin-left: -5px;
+                }
+                .name {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
         }

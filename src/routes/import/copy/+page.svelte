@@ -14,9 +14,14 @@
     }
     onMount(async () => {
         if (username) {
+            const config = await getConfig($page.url.origin);
             const script = await fetch("/script.js");
             let content = await script.text();
             content = content.replace("usernamehere", username);
+
+            if(config.savePfps){
+                content = content.replace("savePfps = false", "savePfps = true");
+            }
             codeBlock.innerHTML = content;
         }
     });

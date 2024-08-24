@@ -1,6 +1,7 @@
 import fs from "fs";
 import { json } from "@sveltejs/kit";
 import { getDay, getTime } from "$lib/backend/utils.js";
+import { getConfig } from "$lib/backend/config.js";
 export async function GET() {
     const dataPath = "./data/accounts";
     if(!fs.existsSync(dataPath)) return json(null);
@@ -19,7 +20,7 @@ export async function GET() {
     return json(accounts);
 }
 
-export async function POST({ request }) {
+export async function POST({ request, url }) {
     const data = JSON.parse(await request.json());
     const userPath = `./data/accounts/${data.account.username}`;
     const snapshotPath = `${userPath}/${getDay()}/${getTime()}`;
@@ -31,6 +32,11 @@ export async function POST({ request }) {
     const followersFile = `${snapshotPath}/followers.json`;
     const followingFile = `${snapshotPath}/following.json`;
 
+    const config = await getConfig(url.origin);
+    if(config.savePfps){
+        await savePfps(url.origin, data);
+    }
+
     fs.writeFileSync(accountFile, JSON.stringify(data.account, null, 4), 'utf8');
     fs.writeFileSync(followersFile, JSON.stringify(data.followers, null, 4), 'utf8');
     fs.writeFileSync(followingFile, JSON.stringify(data.following, null, 4), 'utf8');
@@ -41,4 +47,17 @@ export async function POST({ request }) {
     fs.writeFileSync(currentPfpFile, Buffer.from(pfpBuffer));
     
     return json({ message: "success" });
+}
+
+async function savePfps(origin, data){
+    const res = await fetch(origin + "/api/gallery", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        },
+    });
+    for(const account of data){
+        delete account.pfp;
+    }
 }

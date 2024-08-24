@@ -15,7 +15,7 @@ async function contactAPI(hash, userID, after) {
     return json;
 }
 
-async function fetchFollowers(userId) {
+async function fetchFollowers(userId, savePfps) {
     let followers = [];
     let after = null;
     let has_next = true;
@@ -27,7 +27,13 @@ async function fetchFollowers(userId) {
         has_next = json.data.user.edge_followed_by.page_info.has_next_page;
         after = json.data.user.edge_followed_by.page_info.end_cursor;
         followers = followers.concat(
-            json.data.user.edge_followed_by.edges.map(({ node }) => ({ username: node.username, id: node.id }))
+            json.data.user.edge_followed_by.edges.map(({ node }) => (
+                {
+                    username: node.username,
+                    id: node.id,
+                    pfp: savePfps ? node.profile_pic_url : undefined,
+                }
+            ))
         );
 
         fetchCount += json.data.user.edge_followed_by.edges.length;
@@ -37,7 +43,7 @@ async function fetchFollowers(userId) {
     return followers;
 }
 
-async function fetchFollowings(userId) {
+async function fetchFollowings(userId, savePfps) {
     let followings = [];
     let after = null;
     let has_next = true;
@@ -48,8 +54,13 @@ async function fetchFollowings(userId) {
         const json = await contactAPI("d04b0a864b4b54837c0d870b0e77e076", userId, after);
         has_next = json.data.user.edge_follow.page_info.has_next_page;
         after = json.data.user.edge_follow.page_info.end_cursor;
+
         followings = followings.concat(
-            json.data.user.edge_follow.edges.map(({ node }) => ({ username: node.username, id: node.id }))
+            json.data.user.edge_follow.edges.map(({ node }) => ({
+                username: node.username,
+                id: node.id,
+                pfp: savePfps ? node.profile_pic_url : undefined,
+            }))
         );
 
         fetchCount += json.data.user.edge_follow.edges.length;
@@ -60,6 +71,7 @@ async function fetchFollowings(userId) {
 }
 
 async function main() {
+    const savePfps = false;
     clear();
     try {
         console.log(`Process started`);
@@ -74,10 +86,10 @@ async function main() {
             followers: [],
             following: [],
         }
-        data.followers = await fetchFollowers(userId);
-        data.following = await fetchFollowings(userId);
+        data.followers = await fetchFollowers(userId, savePfps);
+        data.following = await fetchFollowings(userId, savePfps);
 
-        console.log(data)
+        console.log(data);
     } catch (err) {
         console.error({ err });
     }
@@ -92,7 +104,6 @@ async function getProfileData(username) {
     });
 
     const json = await res.json();
-    console.log("Profile data: ", json.data);
     return {
         username: json.data.user.username,
         pfp: json.data.user.profile_pic_url_hd,
