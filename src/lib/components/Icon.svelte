@@ -33,6 +33,11 @@
             name: "menu",
             svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/></svg>`,
         },
+        {
+            box: 448,
+            name: "grid",
+            svg: `<svg width="448" height="448" viewBox="0 0 448 448" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="46" y="46" width="102" height="102" rx="20" fill="white"/><rect x="46" y="173" width="102" height="102" rx="20" fill="white"/><rect x="46" y="300" width="102" height="102" rx="20" fill="white"/><rect x="173" y="46" width="102" height="102" rx="20" fill="white"/><rect x="173" y="173" width="102" height="102" rx="20" fill="white"/><rect x="173" y="300" width="102" height="102" rx="20" fill="white"/><rect x="300" y="46" width="102" height="102" rx="20" fill="white"/><rect x="300" y="173" width="102" height="102" rx="20" fill="white"/><rect x="300" y="300" width="102" height="102" rx="20" fill="white"/></svg>`,
+        },
     ];
     let displayIcon = icons.find((e) => e.name === name);
 </script>
@@ -46,7 +51,7 @@
     svg {
         fill: CanvasText;
 
-        &.invert{
+        &.invert {
             fill: light-dark(white, CanvasText);
         }
     }

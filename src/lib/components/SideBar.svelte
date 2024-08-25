@@ -63,7 +63,7 @@
 
         <a class=" item" class:active={$page.url.pathname === `/dashboard/gallery`} href="/dashboard/gallery">
             <div class="circle">
-                <Icon name="settings" width={"18px"} height={"18px"} />
+                <Icon name="grid" width={"18px"} height={"18px"} />
             </div>
             <p class="name nomargin">Gallery</p>
         </a>
