@@ -6,7 +6,7 @@ export class Config{
     chartType: ChartType = ChartType.Line;
     lastActiveUser: string = "";
     sidebarCollapsed: boolean = false;
-    defaultPeriod: Period = Periods.days7;
+    defaultPeriodId: number = Periods.days7.id;
     showPfpsInDashboard: boolean = false;
 }
 export enum ChartType{

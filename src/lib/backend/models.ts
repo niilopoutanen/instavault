@@ -38,26 +38,31 @@ export class Period {
     from: Date;
     to: Date;
     dateSpan: number;
+    id: number;
 }
 
 export class Periods {
+    static full: Period = {
+        title: "Full history",
+        from: new Date(0),
+        to: new Date(),
+        dateSpan: 0,
+        id: 0
+    };
     static days7: Period = {
         title: "7 Days",
         from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
         to: new Date(),
-        dateSpan: 7
+        dateSpan: 7,
+        id: 1
     };
     static days30: Period = {
         title: "30 Days",
         from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
         to: new Date(),
-        dateSpan: 30
+        dateSpan: 30,
+        id: 2
     };
-    static full: Period = {
-        title: "Full history",
-        from: new Date(0),
-        to: new Date(),
-        dateSpan: 0
-    };
+
     static all: Period[] = new Array<Period>(Periods.days7, Periods.days30, Periods.full);
 }

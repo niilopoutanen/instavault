@@ -3,11 +3,13 @@
     import ChartCard from "$lib/components/cards/ChartCard.svelte";
     import ListCard from "$lib/components/cards/ListCard.svelte";
     import Chips from "$lib/components/Chips.svelte";
-    import { Period, Snapshot } from "$lib/backend/models";
+    import { Period, Periods, Snapshot } from "$lib/backend/models";
     import UserActivityCard from "$lib/components/cards/UserActivityCard.svelte";
     import { writeValue } from "$lib/backend/config";
     import { beautifyDate } from "$lib/backend/utils";
     import { page } from "$app/stores";
+    import { onMount } from "svelte";
+    import { getConfig } from "$lib/backend/config";
     export let data: Snapshot;
 
     export let activePeriod: Period;
@@ -15,6 +17,11 @@
     $: {
         writeValue("lastActiveUser", data?.account?.username, $page.url.origin);
     }
+
+    onMount(async () => {
+        const config = await getConfig($page.url.origin);
+        activePeriod = Periods.all.filter((p) => p.id === config.defaultPeriodId)[0];
+    })
 </script>
 
 <div class="grid">

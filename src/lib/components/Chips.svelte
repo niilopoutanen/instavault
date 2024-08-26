@@ -7,7 +7,11 @@
     export let connected = false;
     function setActiveItem(item) {
         activePeriod = item;
-        writeValue("defaultPeriod", item, $page.url.origin);
+        writeValue("defaultPeriodId", item.id, $page.url.origin);
+    }
+
+    $: {
+        console.log(activePeriod);
     }
 </script>
 
