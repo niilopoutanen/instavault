@@ -2,12 +2,16 @@
     import Card from "../Card.svelte";
     import { beautifyDate } from "$lib/backend/utils";
     import { Period, Summary } from "$lib/backend/models";
+    import { onMount } from "svelte";
+    import { getConfig } from "$lib/backend/config";
+    import { page } from "$app/stores";
 
     export let title: string;
     export let activePeriod: Period;
     export let summary: Summary[];
 
     let changedAccounts = [];
+    let config = null;
 
     $: activePeriod, summary, calculateChanges();
 
@@ -46,6 +50,9 @@
                 return "unfollows";
         }
     }
+    onMount(async () => {
+        config = await getConfig($page.url.origin);
+    })
 </script>
 
 <Card {title} class="span2">
@@ -53,9 +60,14 @@
     <div class="accounts scroll">
         {#each changedAccounts as account}
             <a class="account" href="https://instagram.com/{account.username}" target="_blank" title="Click to open account in Instagram">
-                <object class="pfp" data="/data/gallery/{account.id}.png" type="image/png" title="Profile">
-                    <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
-                </object>
+                {#if config != null && config.showPfpsInDashboard}
+                    <img 
+                        class="pfp" 
+                        src={`/data/gallery/${account.id}.png`} 
+                        alt="Profile" 
+                        on:error={(event) => event.target.src = '/assets/pfp_placeholder.jpg'}
+                    />
+                {/if}
                 <p class="nomargin username">{account.username}</p>
                 <p class="date">{account.actionDate}</p>
             </a>

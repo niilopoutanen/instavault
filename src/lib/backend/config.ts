@@ -7,6 +7,7 @@ export class Config{
     lastActiveUser: string = "";
     sidebarCollapsed: boolean = false;
     defaultPeriod: Period = Periods.days7;
+    showPfpsInDashboard: boolean = false;
 }
 export enum ChartType{
     Bar = "bar",

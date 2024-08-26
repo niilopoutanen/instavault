@@ -1,9 +1,17 @@
 <script>
+    import { getConfig } from "$lib/backend/config";
+    import { onMount } from "svelte";
     import Card from "../Card.svelte";
+    import { page } from "$app/stores";
 
     export let data;
     export let title;
     export let maxHeight = 300;
+
+    let config = null;
+    onMount(async () => {
+        config = await getConfig($page.url.origin);
+    })
 </script>
 
 <Card {title} class="span2 list">
@@ -12,9 +20,14 @@
         {#if data}
         {#each data as account}
             <a class="account" href="https://instagram.com/{account.username}" target="_blank" title="Click to open account in Instagram">
-                <object class="pfp" data="/data/gallery/{account.id}.png" type="image/png" title="Profile">
-                    <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
-                </object>
+                {#if config != null && config.showPfpsInDashboard}
+                <img 
+                    class="pfp" 
+                    src={`/data/gallery/${account.id}.png`} 
+                    alt="Profile" 
+                    on:error={(event) => event.target.src = '/assets/pfp_placeholder.jpg'} 
+                />
+                {/if}
                 <p class="nomargin username">{account.username}</p>
             </a>
         {/each}
@@ -49,7 +62,7 @@
                 height: 30px;
                 border-radius: 50%;
             }
-            
+
             .username{
                 color: $text-secondary;
                 text-overflow: ellipsis;

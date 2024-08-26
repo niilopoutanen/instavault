@@ -9,16 +9,21 @@
     onMount(async () => {
         config = await getConfig($page.url.origin);
         console.log(config);
-        load();
+        await load();
     });
 
-    function load() {
-        loadDropdown("chartType", controls.chartType);
-        loadSwitch("sidebarCollapsed", controls.sidebarSwitch);
+    async function load() {
+        await loadDropdown("chartType", controls.chartType);
+        await loadSwitch("sidebarCollapsed", controls.sidebarSwitch);
+        await loadSwitch("showPfpsInDashboard", controls.showPfpsSwitch);
 
-        controls.chartType.addEventListener("change", (event) => onSelectChange(event, "chartType"));
-        controls.sidebarSwitch.addEventListener("change", (event) => {
-            onSwitchChange(event, "sidebarCollapsed");
+        controls.chartType.addEventListener("change", async (event) => await onSelectChange(event, "chartType"));
+        controls.sidebarSwitch.addEventListener("change", async (event) => {
+            await onSwitchChange(event, "sidebarCollapsed");
+            location.reload();
+        });
+        controls.showPfpsSwitch.addEventListener("change", async (event) => {
+            await onSwitchChange(event, "showPfpsInDashboard")
             location.reload();
         });
     }
@@ -35,6 +40,7 @@
     }
 
     async function onSwitchChange(event, key) {
+        console.log("writing value ", event.target.checked, " to key ", key);
         const value = event.target.checked;
         writeValue(key, value, $page.url.origin);
         config = await getConfig($page.url.origin);
@@ -49,6 +55,7 @@
     async function loadSwitch(key, object) {
         if (!object) return;
         config = await getConfig($page.url.origin);
+        console.log(config[key])
         object.checked = config[key];
     }
 </script>
@@ -69,6 +76,14 @@
         <div class="switch">
             <input type="checkbox" name="switch" class="switch-checkbox" id="sidebarSwitch" tabindex="0" bind:this={controls.sidebarSwitch}>
             <label class="switch-label" for="sidebarSwitch"></label>
+        </div>
+    </div>
+
+    <div class="control">
+        <p class="nomargin title">Show profile pictures in dashboard lists (slows down loading)</p>
+        <div class="switch">
+            <input type="checkbox" name="switch" class="switch-checkbox" id="showPfpsSwitch" tabindex="0" bind:this={controls.showPfpsSwitch}>
+            <label class="switch-label" for="showPfpsSwitch"></label>
         </div>
     </div>
 
