@@ -15,7 +15,7 @@ export async function GET(){
     return json(pfps);
 }
 export async function POST({ request }) {
-    const data = await request.json();
+    const data = JSON.parse(await request.json());
 
     const galleryPath = `./data/gallery`;
     if(!fs.existsSync(galleryPath)){
@@ -23,8 +23,9 @@ export async function POST({ request }) {
     }
 
     const processedAccounts = new Set();
+    for(const account of data){
+        console.log("Loading account", account);
 
-    for(const account of [...data.followers, ...data.following]){
         if(account.id && processedAccounts.has(account.id)) continue;
         processedAccounts.add(account.id);
 

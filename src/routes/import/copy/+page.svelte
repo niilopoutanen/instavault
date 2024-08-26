@@ -6,6 +6,7 @@
     import { goto } from "$app/navigation";
     let codeBlock;
     const username = $page.url.searchParams.get("username");
+    const onlyPfps = $page.url.searchParams.get("onlypfp");
 
     function copy() {
         navigator.clipboard.writeText(codeBlock.innerText);
@@ -14,15 +15,14 @@
     }
     onMount(async () => {
         if (username) {
-            const config = await getConfig($page.url.origin);
             const script = await fetch("/script.js");
             let content = await script.text();
-            content = content.replace("usernamehere", username);
+            content = content.replaceAll("usernamehere", username);
 
-            /*
-            if(config.savePfps){
+            
+            if(onlyPfps){
                 content = content.replace("savePfps = false", "savePfps = true");
-            }*/
+            }
            
             codeBlock.innerHTML = content;
         }
@@ -31,10 +31,10 @@
     async function next(){
         const config = await getConfig($page.url.origin);
         if(config.skipConsoleTutorial){
-            goto("/import/paste?username=" + username);
+            goto("/import/paste?onlypfp="+ onlyPfps + "&username=" + username);
         }
         else{
-            goto("/import/how?username=" + username);
+            goto("/import/how?onlypfp="+ onlyPfps + "&username=" + username);
         }
     }
 </script>

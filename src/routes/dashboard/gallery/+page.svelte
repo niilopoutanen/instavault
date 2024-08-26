@@ -12,8 +12,10 @@
     });
 </script>
 
-
-<h1 class="nomargin">Gallery</h1>
+<div class="header">
+    <h1 class="nomargin">Gallery</h1>
+    <a class="margin-left button" href="/import/pfps">Import new data</a>
+</div>
 
 <div class="gallery">
     {#if pfps != null && pfps.length > 0}
@@ -28,6 +30,13 @@
 </div>
 
 <style lang="scss">
+    .header{
+        display: flex;
+
+        .button{
+            margin-left: auto;
+        }
+    }
     .gallery {
         display: flex;
         flex-wrap: wrap;

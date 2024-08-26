@@ -5,10 +5,11 @@
     import { writeValue } from "$lib/backend/config";
     import { goto } from "$app/navigation";
     const username = $page.url.searchParams.get("username");
+    const onlyPfps = $page.url.searchParams.get("onlypfp");
 
     function dontShowAgain(){
         writeValue("skipConsoleTutorial", true, $page.url.origin);
-        goto("/import/paste?username=" + username)
+        goto("/import/paste?onlypfp="+ onlyPfps + "&username=" + username)
     }
 </script>
 
@@ -18,7 +19,7 @@
 <div class="controls">
     <button class="button layer-2" on:click={dontShowAgain}>Don't show again</button>
     <a class="button layer-2" href="https://instagram.com/{username}" target="_blank">Open Instagram</a>
-    <a class="button" style=" view-transition-name: nextbtn;" href="/import/paste?username={username}">Continue</a>
+    <a class="button" style=" view-transition-name: nextbtn;" href="/import/paste?onlypfp={onlyPfps}&username={username}">Continue</a>
 </div>
 
 <style lang="scss">

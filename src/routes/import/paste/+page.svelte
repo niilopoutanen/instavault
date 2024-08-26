@@ -3,21 +3,32 @@
     import { page } from "$app/stores";
     let textArea;
     const username = $page.url.searchParams.get("username");
+    const onlyPfps = $page.url.searchParams.get("onlypfp");
 
     async function process() {
         const text = textArea.value;
-
-        const res = await fetch("/api/accounts", {
-            method: "POST",
-            body: JSON.stringify(text),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-            },
-        });
-        if(res.ok){
-            goto("/dashboard/account/" + username);
+        let res;
+        if (onlyPfps) {
+            res = await fetch("/api/gallery", {
+                method: "POST",
+                body: JSON.stringify(text),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+            });
+        } else {
+            res = await fetch("/api/accounts", {
+                method: "POST",
+                body: JSON.stringify(text),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+            });
         }
-        else{
+
+        if (res.ok) {
+            goto("/dashboard/account/" + username);
+        } else {
             const notifyEvent = new CustomEvent("displayNotification", { detail: "Error: Invalid data" });
             window.dispatchEvent(notifyEvent);
         }
