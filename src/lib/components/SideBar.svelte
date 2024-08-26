@@ -171,7 +171,7 @@
                     display: none;
                 }
             }
-            .account {
+            .item {
                 justify-content: center;
                 .name {
                     display: none;
