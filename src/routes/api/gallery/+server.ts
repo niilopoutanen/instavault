@@ -24,19 +24,29 @@ export async function POST({ request }) {
 
     const processedAccounts = new Set();
     for(const account of data){
-        console.log("Loading account", account);
+        console.log("Loading account ", account.username);
 
-        if(account.id && processedAccounts.has(account.id)) continue;
+        if(account.id && processedAccounts.has(account.id)){
+            console.log("Found duplicate account ", account.username);
+            continue;
+        }
         processedAccounts.add(account.id);
 
         if(!account.pfp) continue;
-        const accountFile = `${galleryPath}/${account.id}.png`;
-        const pfpReq = await fetch(account.pfp);
-        const pfpBuffer = await pfpReq.arrayBuffer();
-        fs.writeFileSync(accountFile, Buffer.from(pfpBuffer));
-        console.log("processed");
+        try{
+            const accountFile = `${galleryPath}/${account.id}.png`;
+            const pfpReq = await fetch(account.pfp);
+            const pfpBuffer = await pfpReq.arrayBuffer();
+            fs.writeFileSync(accountFile, Buffer.from(pfpBuffer));
+        }
+        catch(err){
+            console.log(err);
+        }
+
     }
     
+    console.log("processed");
+
     return json({ message: "success" });
 }
 

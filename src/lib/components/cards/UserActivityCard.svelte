@@ -25,6 +25,7 @@
                 for (const account of summary[i][getFieldName()]) {
                     changedAccounts.push({
                         username: account.username,
+                        id: account.id,
                         actionDate: beautifyDate(summary[i].date),
                     });
                 }
@@ -52,6 +53,9 @@
     <div class="accounts scroll">
         {#each changedAccounts as account}
             <a class="account" href="https://instagram.com/{account.username}" target="_blank" title="Click to open account in Instagram">
+                <object class="pfp" data="/data/gallery/{account.id}.png" type="image/png" title="Profile">
+                    <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
+                </object>
                 <p class="nomargin username">{account.username}</p>
                 <p class="date">{account.actionDate}</p>
             </a>
@@ -79,6 +83,13 @@
             border-top: 1px solid light-dark($layer-3-light, $layer-3-dark);
             text-decoration: none;
             cursor: pointer;
+
+            .pfp, .pfp img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
 
             .username {
                 color: $text-secondary;
