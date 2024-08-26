@@ -11,7 +11,7 @@
         const text = textArea.value;
         let res;
         processing = true;
-        if (onlyPfps) {
+        if (onlyPfps == "true") {
             res = await fetch("/api/gallery", {
                 method: "POST",
                 body: JSON.stringify(text),
