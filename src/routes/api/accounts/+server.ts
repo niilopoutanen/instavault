@@ -41,10 +41,15 @@ export async function POST({ request, url }) {
     fs.writeFileSync(followersFile, JSON.stringify(data.followers, null, 4), 'utf8');
     fs.writeFileSync(followingFile, JSON.stringify(data.following, null, 4), 'utf8');
 
-    const pfpReq = await fetch(data.account.pfp);
-    const pfpBuffer = await pfpReq.arrayBuffer();
-    fs.writeFileSync(mainPfpFile, Buffer.from(pfpBuffer));
-    fs.writeFileSync(currentPfpFile, Buffer.from(pfpBuffer));
+    try{
+        const pfpReq = await fetch(data.account.pfp);
+        const pfpBuffer = await pfpReq.arrayBuffer();
+        fs.writeFileSync(mainPfpFile, Buffer.from(pfpBuffer));
+        fs.writeFileSync(currentPfpFile, Buffer.from(pfpBuffer));
+    }
+    catch (err) {
+        console.error("Could not download PFP: ", err);
+    }
     
     return json({ message: "success" });
 }
