@@ -6,6 +6,7 @@
     import { goto } from "$app/navigation";
     let codeBlock;
     const username = $page.url.searchParams.get("username");
+    const userID = $page.url.searchParams.get("userID");
     const onlyPfps = $page.url.searchParams.get("onlypfp");
 
     function copy() {
@@ -18,7 +19,7 @@
             const script = await fetch("/script.js");
             let content = await script.text();
             content = content.replaceAll("usernamehere", username);
-
+            content = content.replace("userIDhere", userID);
             
             if(onlyPfps){
                 content = content.replace("savePfps = false", "savePfps = true");

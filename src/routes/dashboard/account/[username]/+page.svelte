@@ -29,6 +29,7 @@
 
     <div class="controls span4">
         <a href="/import/copy?username={data?.account?.username}" class="button layer-2 small nomargin">Import new data</a>
+        <a href="/import/copy?username={data?.account?.username}&userID={data?.account?.id}" class="button layer-2 small nomargin">Import only follower lists</a>
         <a href="https://instagram.com/{data?.account?.username}" target="_blank" class="button layer-2 small nomargin">View profile</a>
         <div class="expand"></div>
         <Chips bind:activePeriod />

@@ -37,7 +37,9 @@ export async function POST({ request, url }) {
         await savePfps(url.origin, data);
     }
 
-    fs.writeFileSync(accountFile, JSON.stringify(data.account, null, 4), 'utf8');
+    if(data.account.id || data.account.id != null){
+        fs.writeFileSync(accountFile, JSON.stringify(data.account, null, 4), 'utf8');
+    }
     fs.writeFileSync(followersFile, JSON.stringify(data.followers, null, 4), 'utf8');
     fs.writeFileSync(followingFile, JSON.stringify(data.following, null, 4), 'utf8');
 

@@ -75,19 +75,29 @@ async function main() {
     try {
         console.log(`Process started`);
         const username = "usernamehere";
-
-        const userQueryRes = await fetch(`https://www.instagram.com/web/search/topsearch/?query=${username}`);
-        const userQueryJson = await userQueryRes.json();
-        const userId = userQueryJson.users.map(u => u.user).find(u => u.username === username).pk;
-        const profileData = await getProfileData(username);
+        let userId = "userIDhere";
+        
         let data = {
-            account: profileData,
+            account: null,
             followers: [],
             following: [],
         }
+        if(userId === "userIDhere"){
+            const userQueryRes = await fetch(`https://www.instagram.com/web/search/topsearch/?query=${username}`);
+            const userQueryJson = await userQueryRes.json();
+            userId = userQueryJson.users.map(u => u.user).find(u => u.username === username).pk;
+            const profileData = await getProfileData(username);
+            data.account = profileData;
+        }
+
         data.followers = await fetchFollowers(userId, false);
         data.following = await fetchFollowings(userId, false);
 
+        if(!data.account || !data.account.username || data.account.username == null){
+            data.account = {
+                username: username,
+            }
+        }
         console.log(data);
     } catch (err) {
         console.error({ err });
