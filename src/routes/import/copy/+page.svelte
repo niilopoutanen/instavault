@@ -19,27 +19,26 @@
             const script = await fetch("/script.js");
             let content = await script.text();
             content = content.replaceAll("usernamehere", username);
-            content = content.replace("userIDhere", userID);
-            
-            if(onlyPfps){
+            if (userID) {
+                content = content.replace("userIDhere", userID);
+            }
+            if (onlyPfps) {
                 content = content.replace("savePfps = false", "savePfps = true");
             }
-           
+
             codeBlock.innerHTML = content;
         }
     });
 
-    async function next(){
+    async function next() {
         const config = await getConfig($page.url.origin);
-        if(config.skipConsoleTutorial){
-            goto("/import/paste?onlypfp="+ onlyPfps + "&username=" + username);
-        }
-        else{
-            goto("/import/how?onlypfp="+ onlyPfps + "&username=" + username);
+        if (config.skipConsoleTutorial) {
+            goto("/import/paste?onlypfp=" + onlyPfps + "&username=" + username);
+        } else {
+            goto("/import/how?onlypfp=" + onlyPfps + "&username=" + username);
         }
     }
 </script>
-
 
 <p>Copy this script:</p>
 <pre class="scroll nomargin" bind:this={codeBlock}></pre>
