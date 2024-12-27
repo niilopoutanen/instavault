@@ -50,7 +50,8 @@ function loadSummary(snapshotPath, previousSnapshotPath): Summary {
     summary.date = getDateFromPath(snapshotPath);
     summary.followers = getArrayLength(followersFile);
     summary.following = getArrayLength(followingFile);
-
+    const hasPFP = fs.existsSync(snapshotPath + "/pfp.jpg");
+    summary.hasPFP = hasPFP;
     if (previousSnapshotPath) {
         const previousFollowers = JSON.parse(fs.readFileSync(previousFollowersFile, 'utf8'));
         const previousFollowing = JSON.parse(fs.readFileSync(previousFollowingFile, 'utf8'));

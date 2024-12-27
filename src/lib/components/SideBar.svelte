@@ -34,7 +34,7 @@
         <h1>InstaVault</h1>
     </a>
 
-    <div class="section fullheight">
+    <div class="section fullheight accounts scroll">
         <span class="title">Accounts</span>
         {#each accounts as account}
             <a
@@ -51,17 +51,17 @@
         {/each}
     </div>
 
-    <div class="section fullheight">
+    <div class="section">
         <span class="title">Tools</span>
 
-        <a class=" item" class:active={$page.url.pathname === `/dashboard/settings`} href="/dashboard/settings">
+        <a class="item" class:active={$page.url.pathname === `/dashboard/settings`} href="/dashboard/settings">
             <div class="circle">
                 <Icon name="settings" width={"18px"} height={"18px"} />
             </div>
             <p class="name nomargin">Settings</p>
         </a>
 
-        <a class=" item" class:active={$page.url.pathname === `/dashboard/gallery`} href="/dashboard/gallery">
+        <a class="item" class:active={$page.url.pathname === `/dashboard/gallery`} href="/dashboard/gallery">
             <div class="circle">
                 <Icon name="grid" width={"18px"} height={"18px"} />
             </div>
@@ -119,6 +119,10 @@
             }
             :global(.icon.collapse) {
                 display: none;
+            }
+            &.accounts{
+                overflow-y: auto;
+                flex-grow: 1;
             }
             .item {
                 padding: 10px;

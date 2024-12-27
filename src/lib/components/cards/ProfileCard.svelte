@@ -8,9 +8,12 @@
 
 <div class="header span4">
     <Card class="center profilecard">
-        <object class="pfp" data="/data/accounts/{data?.account?.username}/pfp.jpg" type="image/jpeg" title="Profile">
-            <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
-        </object>
+        <a href="/dashboard/account/{data?.account?.username}/pfp">
+            <object class="pfp" data="/data/accounts/{data?.account?.username}/pfp.jpg" type="image/jpeg" title="Profile">
+                <img src="/assets/pfp_placeholder.jpg" alt="Profile" />
+            </object>
+        </a>
+
         <div class="title">
             <p class="username nomargin">{data?.account?.username}</p>
             {#if data?.account?.verified}
@@ -50,7 +53,7 @@
             width: 200px;
             height: 200px;
             background-color: light-dark($layer-3-light, $layer-3-dark);
-
+            
             img {
                 width: 100%;
                 height: 100%;

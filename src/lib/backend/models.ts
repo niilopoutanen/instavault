@@ -31,6 +31,7 @@ export class Summary {
     newfollowers: User[] = new Array<User>();
     unfollows: User[] = new Array<User>();
     newfollows: User[] = new Array<User>();
+    hasPFP: boolean;
 }
 
 export class Period {
