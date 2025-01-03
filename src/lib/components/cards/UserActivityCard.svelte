@@ -30,12 +30,12 @@
                     changedAccounts.push({
                         username: account.username,
                         id: account.id,
-                        actionDate: beautifyDate(summary[i].date),
+                        date: summary[i].date,
                     });
                 }
             }
         }
-        changedAccounts.sort((a, b) => new Date(b.actionDate).getTime() - new Date(a.actionDate).getTime());
+        changedAccounts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
 
     function getFieldName() {
@@ -69,7 +69,7 @@
                     />
                 {/if}
                 <p class="nomargin username">{account.username}</p>
-                <p class="date">{account.actionDate}</p>
+                <p class="date">{beautifyDate(account.date)}</p>
             </a>
         {/each}
         {#if changedAccounts.length === 0}

@@ -18,17 +18,17 @@
     <p slot="header" class="title nomargin right">{data?.length}</p>
     <div class="accounts scroll" style="max-height: {maxHeight}px;">
         {#if data}
-        {#each data as account}
+        {#each data as account (account.id)}
             <a class="account" href="https://instagram.com/{account.username}" target="_blank" title="Click to open account in Instagram">
-                {#if config != null && config.showPfpsInDashboard}
-                <img 
-                    class="pfp" 
-                    src={`/data/gallery/${account.id}.png`} 
-                    alt="Profile" 
-                    on:error={(event) => event.target.src = '/assets/pfp_placeholder.jpg'} 
-                />
-                {/if}
-                <p class="nomargin username">{account.username}</p>
+            {#if config != null && config.showPfpsInDashboard}
+            <img 
+                class="pfp" 
+                src={`/data/gallery/${account.id}.png`} 
+                alt="Profile" 
+                on:error={(event) => event.target.src = '/assets/pfp_placeholder.jpg'} 
+            />
+            {/if}
+            <p class="nomargin username">{account.username}</p>
             </a>
         {/each}
     {:else}

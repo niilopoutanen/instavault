@@ -9,10 +9,6 @@
         activePeriod = item;
         writeValue("defaultPeriodId", item.id, $page.url.origin);
     }
-
-    $: {
-        console.log(activePeriod);
-    }
 </script>
 
 <div class="chips {connected ? 'connected' : ''}">
