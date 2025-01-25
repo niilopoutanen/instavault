@@ -1,4 +1,5 @@
 @use 'vars' as *;
+@use "sass:color";
 
 input,
 textarea {
@@ -45,7 +46,7 @@ a.button {
     transition: background-color 0.2s, transform 0.2s;
 
     &:hover {
-        background-color: darken($accent, 5%);
+        background-color: color.adjust($accent, $lightness: -5%);
     }
 
     &:active {

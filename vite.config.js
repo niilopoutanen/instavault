@@ -12,5 +12,12 @@ export default defineConfig({
 				path.resolve('../data') // Specifically allow access to the data directory
 			]
 		}
+	},
+	css: {
+		preprocessorOptions: {
+			scss: {
+				api: 'modern-compiler' // or "modern"
+			}
+		}
 	}
 });
