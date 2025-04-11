@@ -55,9 +55,7 @@ a.button {
 
     &.secondary {
         background-color: light-dark($layer-3-light, $layer-3-dark);
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 13px;
+
     }
 
     &.layer-2 {
@@ -80,6 +78,7 @@ a.button {
         text-align: center;
         justify-content: center;
     }
+
 
 
 }

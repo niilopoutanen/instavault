@@ -69,6 +69,10 @@
         </a>
     </div>
     <div class="section">
+        <a class="button secondary fullwidth center" href="/import/multi">
+            <Icon name="plus" class="invert collapse" />
+            <p class="nomargin">Import multiple</p>
+        </a>
         <a class="button fullwidth center" href="/import">
             <Icon name="plus" class="invert collapse" />
             <p class="nomargin">Add new</p>

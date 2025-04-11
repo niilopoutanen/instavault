@@ -4,7 +4,7 @@ import type { Account, Summary } from './models';
 
 export function getLatestSnapshotPath(username: string): string {
     const accountPath = `./data/accounts/${username}`;
-    if(!fs.existsSync(accountPath)){
+    if (!fs.existsSync(accountPath) || fs.readdirSync(accountPath).length === 0) {
         return null;
     }
     let dates: any[] = fs.readdirSync(accountPath, { withFileTypes: true })
