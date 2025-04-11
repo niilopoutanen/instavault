@@ -42,7 +42,17 @@
     async function next() {
         const config = await getConfig($page.url.origin);
         if (config.skipConsoleTutorial) {
-            goto("/import/paste?onlypfp=" + onlyPfps + "&username=" + username);
+            let url = new URL("/import/paste", $page.url.origin);
+            if(onlyPfps == "true") {
+                url.searchParams.set("onlypfp", onlyPfps);
+            }
+            if(username) {
+                url.searchParams.set("username", username);
+            }
+            if(accounts) {
+                url.searchParams.set("accounts", accounts);
+            }
+            goto(url.toString());
         } else {
             goto("/import/how?onlypfp=" + onlyPfps + "&username=" + username);
         }
