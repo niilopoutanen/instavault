@@ -8,32 +8,51 @@
     const username = $page.url.searchParams.get("username");
     const userID = $page.url.searchParams.get("userID");
     const onlyPfps = $page.url.searchParams.get("onlypfp");
-
+    const accounts = $page.url.searchParams.get("accounts");
     function copy() {
         navigator.clipboard.writeText(codeBlock.innerText);
-        const notifyEvent = new CustomEvent("displayNotification", { detail: "Data copied" });
+        const notifyEvent = new CustomEvent("displayNotification", {
+            detail: "Data copied",
+        });
         window.dispatchEvent(notifyEvent);
     }
     onMount(async () => {
+        const script = await fetch("/script.js");
+        let content = await script.text();
         if (username) {
-            const script = await fetch("/script.js");
-            let content = await script.text();
             content = content.replaceAll("usernamehere", username);
-            if (userID) {
-                content = content.replace("userIDhere", userID);
-            }
-            if (onlyPfps) {
-                content = content.replace("savePfps = false", "savePfps = true");
-            }
-
-            codeBlock.innerHTML = content;
         }
+        if (userID) {
+            content = content.replace("userIDhere", userID);
+        }
+        if (onlyPfps) {
+            content = content.replace("savePfps = false", "savePfps = true");
+        }
+        if (accounts) {
+            const accountsArray = accounts.split(",");
+            content = content.replace(
+                "accounts = []",
+                "accounts = " + JSON.stringify(accountsArray),
+            );
+        }
+
+        codeBlock.innerHTML = content;
     });
 
     async function next() {
         const config = await getConfig($page.url.origin);
         if (config.skipConsoleTutorial) {
-            goto("/import/paste?onlypfp=" + onlyPfps + "&username=" + username);
+            let url = new URL("/import/paste", $page.url.origin);
+            if(onlyPfps == "true") {
+                url.searchParams.set("onlypfp", onlyPfps);
+            }
+            if(username) {
+                url.searchParams.set("username", username);
+            }
+            if(accounts) {
+                url.searchParams.set("accounts", accounts);
+            }
+            goto(url.toString());
         } else {
             goto("/import/how?onlypfp=" + onlyPfps + "&username=" + username);
         }
@@ -48,7 +67,11 @@
         <Icon name="copy" width={"16px"} height={"16px"} />
         <p class="nomargin">Copy</p>
     </button>
-    <button class="button" style="view-transition-name: nextbtn;" on:click={next}>Continue</button>
+    <button
+        class="button"
+        style="view-transition-name: nextbtn;"
+        on:click={next}>Continue</button
+    >
 </div>
 
 <style lang="scss">
