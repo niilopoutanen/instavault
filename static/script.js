@@ -15,7 +15,7 @@ async function contactAPI(hash, userID, after) {
     return json;
 }
 
-async function fetchFollowers(userId, savePfps) {
+async function fetchFollowers(userId, savePfps, quiet = false) {
     let followers = [];
     let after = null;
     let has_next = true;
@@ -37,13 +37,15 @@ async function fetchFollowers(userId, savePfps) {
         );
 
         fetchCount += json.data.user.edge_followed_by.edges.length;
-        console.log(fetchCount + " Followers loaded so far...");
+        if (!quiet) {
+            console.log(fetchCount + " Followers loaded so far...");
+        }
     }
 
     return followers;
 }
 
-async function fetchFollowings(userId, savePfps) {
+async function fetchFollowings(userId, savePfps, quiet = false) {
     let followings = [];
     let after = null;
     let has_next = true;
@@ -64,25 +66,28 @@ async function fetchFollowings(userId, savePfps) {
         );
 
         fetchCount += json.data.user.edge_follow.edges.length;
-        console.log(fetchCount + " Followings loaded so far...");
+
+        if (!quiet) {
+            console.log(fetchCount + " Followed accounts loaded so far...");
+        }
     }
 
     return followings;
 }
 
-async function main() {
-    clear();
+async function main(username, userId, quiet = false) {
+    console.clear();
     try {
-        console.log(`Process started`);
-        const username = "usernamehere";
-        let userId = "userIDhere";
         
+        console.log(`Loading data for ${username}...`);
+
+
         let data = {
             account: null,
             followers: [],
             following: [],
         }
-        if(userId === "userIDhere"){
+        if (userId === "userIDhere" || userId == null) {
             const userQueryRes = await fetch(`https://www.instagram.com/web/search/topsearch/?query=${username}`);
             const userQueryJson = await userQueryRes.json();
             userId = userQueryJson.users.map(u => u.user).find(u => u.username === username).pk;
@@ -90,24 +95,29 @@ async function main() {
             data.account = profileData;
         }
 
-        data.followers = await fetchFollowers(userId, false);
-        data.following = await fetchFollowings(userId, false);
+        data.followers = await fetchFollowers(userId, false, false);
+        data.following = await fetchFollowings(userId, false, false);
 
-        if(!data.account || !data.account.username || data.account.username == null){
+        if (!data.account || !data.account.username || data.account.username == null) {
             data.account = {
                 username: username,
             }
         }
-        console.log(data);
+
+        if (!quiet) {
+            console.log(data);
+        }
+        else {
+            return data;
+        }
     } catch (err) {
         console.error({ err });
     }
 }
 
-async function getPfps(){
+async function getPfps(username) {
     clear();
     try {
-        const username = "usernamehere";
         console.log(`Loading profile pictures from ${username}`);
 
         const userQueryRes = await fetch(`https://www.instagram.com/web/search/topsearch/?query=${username}`);
@@ -149,11 +159,23 @@ async function getProfileData(username) {
     }
 }
 
-
+// Values to be inserted here
+const accounts = [];
 const savePfps = false;
-if(savePfps){
+const username = "usernamehere";
+let userId = "userIDhere";
+
+if (savePfps) {
     getPfps();
 }
-else{
+else if (accounts.length > 0) {
+    let dataArray = [];
+    for (const account of accounts) {
+        dataArray.push(await main(account, null, true));
+    }
+
+    console.log(dataArray);
+}
+else {
     main();
 }
