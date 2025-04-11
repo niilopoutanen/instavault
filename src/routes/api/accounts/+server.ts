@@ -21,7 +21,10 @@ export async function GET() {
 }
 
 export async function POST({ request, url }) {
-    const data = await request.json();
+    let data = await request.json();
+    if (typeof data === "string") {
+        data = JSON.parse(data);
+    }
     const userPath = `./data/accounts/${data.account.username}`;
     const snapshotPath = `${userPath}/${getDay()}/${getTime()}`;
     fs.mkdirSync(snapshotPath, { recursive: true });

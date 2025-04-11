@@ -177,5 +177,5 @@ else if (accounts.length > 0) {
     console.log(dataArray);
 }
 else {
-    main();
+    main(username, userId, false);
 }
