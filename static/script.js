@@ -166,7 +166,7 @@ const username = "usernamehere";
 let userId = "userIDhere";
 
 if (savePfps) {
-    getPfps();
+    getPfps(username);
 }
 else if (accounts.length > 0) {
     let dataArray = [];
