@@ -31,6 +31,9 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        height: 70%;
+        overflow-y: scroll;
+        overflow-x: hidden;
 
         .account{
             display: flex;
