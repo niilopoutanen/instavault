@@ -65,5 +65,21 @@ export class Periods {
         id: 2
     };
 
-    static all: Period[] = new Array<Period>(Periods.days7, Periods.days30, Periods.full);
+    static thisyear: Period = {
+        title: "Current year",
+        from: new Date(new Date().getFullYear(), 0, 1),
+        to: new Date(),
+        dateSpan: 365,
+        id: 3
+    };
+
+    static lastyear: Period = {
+        title: "Last year",
+        from: new Date(new Date().getFullYear() - 1, 0, 1),
+        to: new Date(new Date().getFullYear(), 0, 1),
+        dateSpan: 365,
+        id: 4
+    };
+
+    static all: Period[] = new Array<Period>(Periods.days7, Periods.days30, Periods.full, Periods.thisyear, Periods.lastyear);
 }
